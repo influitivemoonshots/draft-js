@@ -107,6 +107,7 @@ class DraftEditorContentsExperimental extends React.Component<Props> {
       customStyleFn,
       editorState,
       editorKey,
+      inlineActions,
       textDirectionality,
     } = this.props;
 
@@ -136,6 +137,7 @@ class DraftEditorContentsExperimental extends React.Component<Props> {
         editorState,
         forceSelection,
         selection,
+        inlineActions,
         block: nodeBlock,
         direction: textDirectionality
           ? textDirectionality

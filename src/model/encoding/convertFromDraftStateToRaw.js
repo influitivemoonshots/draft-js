@@ -69,7 +69,7 @@ const encodeRawBlocks = (
   contentState: ContentState,
   rawState: RawDraftContentState,
 ): RawDraftContentState => {
-  const {entityMap} = rawState;
+  const {entityMap, inlineMap} = rawState;
 
   const rawBlocks = [];
 
@@ -105,6 +105,7 @@ const encodeRawBlocks = (
   return {
     blocks: rawBlocks,
     entityMap,
+    inlineMap,
   };
 };
 
@@ -114,7 +115,7 @@ const encodeRawEntityMap = (
   contentState: ContentState,
   rawState: RawDraftContentState,
 ): RawDraftContentState => {
-  const {blocks, entityMap} = rawState;
+  const {blocks, entityMap, inlineMap} = rawState;
 
   const rawEntityMap = {};
 
@@ -129,15 +130,30 @@ const encodeRawEntityMap = (
 
   return {
     blocks,
+    inlineMap,
     entityMap: rawEntityMap,
   };
 };
+
+const encodeInlineStyle = (
+  contentState: ContentState,
+  rawState: RawDraftContentState,
+): RawDraftContentState => {
+  const {blocks, entityMap} = rawState;
+  
+  return {
+    blocks,
+    entityMap,
+    inlineMap: contentState.getInlineMap(), 
+  }
+}
 
 const convertFromDraftStateToRaw = (
   contentState: ContentState,
 ): RawDraftContentState => {
   let rawDraftContentState = {
     entityMap: {},
+    inlineMap: {},
     blocks: [],
   };
 
@@ -146,6 +162,8 @@ const convertFromDraftStateToRaw = (
 
   // add entities
   rawDraftContentState = encodeRawEntityMap(contentState, rawDraftContentState);
+  
+  rawDraftContentState = encodeInlineStyle(contentState, rawDraftContentState);
 
   return rawDraftContentState;
 };

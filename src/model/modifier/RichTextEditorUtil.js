@@ -297,10 +297,10 @@ const RichTextEditorUtil: RichTextUtils = {
   toggleInlineStyle: function(
     editorState: EditorState,
     inlineStyle: string,
+    inlineStyleMetadata = {},
   ): EditorState {
     const selection = editorState.getSelection();
     const currentStyle = editorState.getCurrentInlineStyle();
-
     // If the selection is collapsed, toggle the specified style on or off and
     // set the result as the new inline style override. This will then be
     // used as the inline style for the next character to be inserted.
@@ -325,12 +325,14 @@ const RichTextEditorUtil: RichTextUtils = {
         content,
         selection,
         inlineStyle,
+        inlineStyleMetadata,
       );
     } else {
       newContent = DraftModifier.applyInlineStyle(
         content,
         selection,
         inlineStyle,
+        inlineStyleMetadata,
       );
     }
 

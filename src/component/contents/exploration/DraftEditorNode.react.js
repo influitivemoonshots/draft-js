@@ -59,6 +59,7 @@ class DraftEditorNode extends React.Component<Props> {
       hasSelection,
       selection,
       tree,
+      inlineActions,
     } = this.props;
 
     const blockKey = block.getKey();
@@ -82,6 +83,7 @@ class DraftEditorNode extends React.Component<Props> {
                   key={offsetKey}
                   offsetKey={offsetKey}
                   block={block}
+                  inlineActions={inlineActions}
                   start={start}
                   selection={hasSelection ? selection : null}
                   forceSelection={forceSelection}

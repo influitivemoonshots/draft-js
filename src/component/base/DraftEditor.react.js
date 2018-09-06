@@ -316,6 +316,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
       readOnly,
       textAlignment,
       textDirectionality,
+      inlineActions,
     } = this.props;
 
     const rootClass = cx({
@@ -344,6 +345,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
       ariaRole === 'combobox' ? !!this.props.ariaExpanded : null;
 
     const editorContentsProps = {
+      inlineActions,
       blockRenderMap,
       blockRendererFn,
       blockStyleFn,

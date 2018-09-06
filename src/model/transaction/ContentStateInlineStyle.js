@@ -24,16 +24,19 @@ const ContentStateInlineStyle = {
     contentState: ContentState,
     selectionState: SelectionState,
     inlineStyle: string,
+    inlineMetadata,
   ): ContentState {
-    return modifyInlineStyle(contentState, selectionState, inlineStyle, true);
+    const newContent = contentState.set('inlineMap', inlineMetadata);
+    return modifyInlineStyle(newContent, selectionState, inlineStyle, true, inlineMetadata);
   },
 
   remove: function(
     contentState: ContentState,
     selectionState: SelectionState,
     inlineStyle: string,
+    inlineMetadata,
   ): ContentState {
-    return modifyInlineStyle(contentState, selectionState, inlineStyle, false);
+    return modifyInlineStyle(contentState, selectionState, inlineStyle, false, inlineMetadata);
   },
 };
 
@@ -42,6 +45,7 @@ function modifyInlineStyle(
   selectionState: SelectionState,
   inlineStyle: string,
   addOrRemove: boolean,
+  inlineMetadata,
 ): ContentState {
   const blockMap = contentState.getBlockMap();
   const startKey = selectionState.getStartKey();
@@ -72,8 +76,8 @@ function modifyInlineStyle(
         chars = chars.set(
           sliceStart,
           addOrRemove
-            ? CharacterMetadata.applyStyle(current, inlineStyle)
-            : CharacterMetadata.removeStyle(current, inlineStyle),
+            ? CharacterMetadata.applyStyle(current, inlineStyle, inlineMetadata)
+            : CharacterMetadata.removeStyle(current, inlineStyle, inlineMetadata),
         );
         sliceStart++;
       }

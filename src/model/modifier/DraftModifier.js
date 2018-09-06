@@ -213,11 +213,13 @@ const DraftModifier = {
     contentState: ContentState,
     selectionState: SelectionState,
     inlineStyle: string,
+    inlineStyleMetadata,
   ): ContentState {
     return ContentStateInlineStyle.add(
       contentState,
       selectionState,
       inlineStyle,
+      inlineStyleMetadata,
     );
   },
 
@@ -225,11 +227,13 @@ const DraftModifier = {
     contentState: ContentState,
     selectionState: SelectionState,
     inlineStyle: string,
+    inlineStyleMetadata,
   ): ContentState {
     return ContentStateInlineStyle.remove(
       contentState,
       selectionState,
       inlineStyle,
+      inlineStyleMetadata,
     );
   },
 

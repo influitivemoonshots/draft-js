@@ -132,6 +132,7 @@ class DraftEditorContents extends React.Component<Props> {
       editorState,
       editorKey,
       textDirectionality,
+      inlineActions,
     } = this.props;
 
     const content = editorState.getCurrentContent();
@@ -176,6 +177,7 @@ class DraftEditorContents extends React.Component<Props> {
         key,
         offsetKey,
         selection,
+        inlineActions,
         tree: editorState.getBlockTree(key),
       };
 

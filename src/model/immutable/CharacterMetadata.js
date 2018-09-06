@@ -31,6 +31,7 @@ const EMPTY_SET = OrderedSet();
 const defaultRecord: CharacterMetadataConfig = {
   style: EMPTY_SET,
   entity: null,
+  data: null,
 };
 
 const CharacterMetadataRecord = Record(defaultRecord);
@@ -51,16 +52,18 @@ class CharacterMetadata extends CharacterMetadataRecord {
   static applyStyle(
     record: CharacterMetadata,
     style: string,
+    { data = {} }
   ): CharacterMetadata {
-    const withStyle = record.set('style', record.getStyle().add(style));
+    const withStyle = record.set('style', record.getStyle().add(style)).set('data', data);
     return CharacterMetadata.create(withStyle);
   }
 
   static removeStyle(
     record: CharacterMetadata,
     style: string,
+    { data = {} }
   ): CharacterMetadata {
-    const withoutStyle = record.set('style', record.getStyle().remove(style));
+    const withoutStyle = record.set('style', record.getStyle().remove(style)).set('data', data);
     return CharacterMetadata.create(withoutStyle);
   }
 
@@ -89,6 +92,7 @@ class CharacterMetadata extends CharacterMetadataRecord {
     const defaultConfig: CharacterMetadataConfig = {
       style: EMPTY_SET,
       entity: (null: ?string),
+      data: null,
     };
 
     // Fill in unspecified properties, if necessary.

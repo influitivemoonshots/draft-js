@@ -40,6 +40,7 @@ const defaultRecord: {
   selectionAfter: ?SelectionState,
 } = {
   entityMap: null,
+  inlineMap: null,
   blockMap: null,
   selectionBefore: null,
   selectionAfter: null,
@@ -51,6 +52,10 @@ class ContentState extends ContentStateRecord {
   getEntityMap(): any {
     // TODO: update this when we fully remove DraftEntity
     return DraftEntity;
+  }
+
+  getInlineMap() {
+    return this.get('inlineMap');
   }
 
   getBlockMap(): BlockMap {
@@ -179,6 +184,7 @@ class ContentState extends ContentStateRecord {
     return new ContentState({
       blockMap,
       entityMap: entityMap || DraftEntity,
+      inlineMap: {},
       selectionBefore: selectionState,
       selectionAfter: selectionState,
     });

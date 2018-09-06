@@ -136,7 +136,7 @@ class DraftEditorLeaf extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const {block} = this.props;
+    const {block, inlineActions = {}} = this.props;
     let {text} = this.props;
 
     // If the leaf is at the end of its block and ends in a soft newline, append
@@ -148,10 +148,11 @@ class DraftEditorLeaf extends React.Component<Props> {
     }
 
     const {customStyleMap, customStyleFn, offsetKey, styleSet} = this.props;
+    let actions = {};
     let styleObj = styleSet.reduce((map, styleName) => {
       const mergedStyles = {};
       const style = customStyleMap[styleName];
-
+      Object.assign(actions, inlineActions[styleName] || {});
       if (style !== undefined && map.textDecoration !== style.textDecoration) {
         // .trim() is necessary for IE9/10/11 and Edge
         mergedStyles.textDecoration = [map.textDecoration, style.textDecoration]
@@ -171,6 +172,7 @@ class DraftEditorLeaf extends React.Component<Props> {
       <span
         data-offset-key={offsetKey}
         ref={ref => (this.leaf = ref)}
+        {...actions}
         style={styleObj}>
         <DraftEditorTextNode>{text}</DraftEditorTextNode>
       </span>

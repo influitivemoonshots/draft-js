@@ -276,6 +276,7 @@ class DraftEditorBlockNode extends React.Component<Props> {
       blockRendererFn,
       blockStyleFn,
       contentState,
+      inlineActions,
       decorator,
       editorKey,
       editorState,
@@ -343,6 +344,7 @@ class DraftEditorBlockNode extends React.Component<Props> {
 
     const blockNode = (
       <DraftEditorNode
+        inlineActions={inlineActions}
         block={block}
         children={children}
         contentState={contentState}

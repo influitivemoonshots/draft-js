@@ -279,6 +279,7 @@ const convertFromRawToDraftState = (
   return new ContentState({
     blockMap,
     entityMap,
+    inlineMap: {},
     selectionBefore: selectionState,
     selectionAfter: selectionState,
   });

@@ -34,6 +34,7 @@ function getEncodedInlinesForType(
   block: BlockNodeRecord,
   styleList: List<DraftInlineStyle>,
   styleToEncode: string,
+  characterList,
 ): Array<InlineStyleRange> {
   const ranges = [];
 
@@ -52,6 +53,7 @@ function getEncodedInlinesForType(
       ranges.push({
         offset: UnicodeUtils.strlen(text.slice(0, start)),
         length: UnicodeUtils.strlen(text.slice(start, end)),
+        data: characterList.get(start).get('data'),
         style: styleToEncode,
       });
     },
@@ -67,14 +69,14 @@ function getEncodedInlinesForType(
 function encodeInlineStyleRanges(
   block: BlockNodeRecord,
 ): Array<InlineStyleRange> {
-  const styleList = block
-    .getCharacterList()
+  const characterList = block.getCharacterList();
+  const styleList = characterList
     .map(c => c.getStyle())
     .toList();
   const ranges = styleList
     .flatten()
     .toSet()
-    .map(style => getEncodedInlinesForType(block, styleList, style));
+    .map(style => getEncodedInlinesForType(block, styleList, style, characterList));
 
   return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
 }
