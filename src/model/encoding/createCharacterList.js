@@ -17,6 +17,7 @@ import type {DraftInlineStyle} from 'DraftInlineStyle';
 
 const CharacterMetadata = require('CharacterMetadata');
 const Immutable = require('immutable');
+const { OrderedSet } = require('immutable');
 
 const {List} = Immutable;
 
@@ -25,7 +26,7 @@ function createCharacterList(
   entities: Array<?string>,
 ): List<CharacterMetadata> {
   const characterArray = inlineStyles.map((style, ii) => {
-    const entity = entities[ii];
+    const entity = entities[ii] || OrderedSet();
     return CharacterMetadata.create({style, entity});
   });
   return List(characterArray);

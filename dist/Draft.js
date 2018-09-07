@@ -870,7 +870,7 @@ var DraftModifier = {
 
     var character = CharacterMetadata.create({
       style: inlineStyle || OrderedSet(),
-      entity: entityKey || null
+      entity: entityKey || OrderedSet()
     });
 
     return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
@@ -1075,7 +1075,7 @@ var CharacterMetadata = function (_CharacterMetadataRec) {
 
     var defaultConfig = {
       style: EMPTY_SET,
-      entity: null
+      entity: EMPTY_SET
     };
 
     // Fill in unspecified properties, if necessary.
@@ -17842,12 +17842,15 @@ module.exports = DraftTreeInvariants;
 var CharacterMetadata = __webpack_require__(5);
 var Immutable = __webpack_require__(0);
 
+var _require = __webpack_require__(0),
+    OrderedSet = _require.OrderedSet;
+
 var List = Immutable.List;
 
 
 function createCharacterList(inlineStyles, entities) {
   var characterArray = inlineStyles.map(function (style, ii) {
-    var entity = entities[ii];
+    var entity = entities[ii] || OrderedSet();
     return CharacterMetadata.create({ style: style, entity: entity });
   });
   return List(characterArray);

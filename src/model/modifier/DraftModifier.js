@@ -65,7 +65,7 @@ const DraftModifier = {
 
     const character = CharacterMetadata.create({
       style: inlineStyle || OrderedSet(),
-      entity: entityKey || null,
+      entity: entityKey || OrderedSet(),
     });
 
     return insertTextIntoContentState(

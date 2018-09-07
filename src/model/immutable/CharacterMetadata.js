@@ -85,7 +85,7 @@ class CharacterMetadata extends CharacterMetadataRecord {
 
     const defaultConfig: CharacterMetadataConfig = {
       style: EMPTY_SET,
-      entity: (null: ?string),
+      entity: EMPTY_SET,
     };
 
     // Fill in unspecified properties, if necessary.
