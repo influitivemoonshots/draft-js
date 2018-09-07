@@ -30,7 +30,7 @@ const EMPTY_SET = OrderedSet();
 
 const defaultRecord: CharacterMetadataConfig = {
   style: EMPTY_SET,
-  entity: null,
+  entity: EMPTY_SET,
 };
 
 const CharacterMetadataRecord = Record(defaultRecord);
@@ -68,10 +68,7 @@ class CharacterMetadata extends CharacterMetadataRecord {
     record: CharacterMetadata,
     entityKey: ?string,
   ): CharacterMetadata {
-    const withEntity =
-      record.getEntity() === entityKey
-        ? record
-        : record.set('entity', entityKey);
+    const withEntity = record.set('entity', record.getEntity().add(entityKey));
     return CharacterMetadata.create(withEntity);
   }
 
